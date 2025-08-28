@@ -56,7 +56,7 @@
       z-index: 2;
     }
 
-    /* خلفية ايموجي */
+    
     .emoji-container {
       position: absolute;
       top: 0;
@@ -81,7 +81,7 @@
       50% { transform: translateY(-25px); }
     }
 
-    /* زرار فتح الفورم */
+    
     .open-btn {
       margin-top: 30px;
       padding: 15px 35px;
@@ -99,7 +99,7 @@
       background: #ff2f7c;
     }
 
-    /* نافذة منبثقة */
+    
     .modal {
       display: none;
       position: fixed;
@@ -195,7 +195,7 @@
 
   <h1>🎂 Welcome to Cake Gallery 🎂</h1>
   
-  <!-- أزرار الكيك -->
+  
   <button class="btn" onclick="showCake(1)">🍰 كيكة 1</button>
   <button class="btn" onclick="showCake(2)">🍰 كيكة 2</button>
   <button class="btn" onclick="showCake(3)">🍰 كيكة 3</button>
@@ -203,14 +203,14 @@
   
   <br><br>
   
-  <!-- صورة الكيك -->
+  
   <img id="cakeImage" src="https://cdn.pixabay.com/photo/2016/11/18/15/01/cake-1835443_1280.jpg" alt="كيكة لذيذة">
 
-  <!-- زرار فتح الفورم -->
+  
   <br>
   <button class="open-btn" onclick="openModal()">📦 اطلب الآن</button>
 
-  <!-- المودال -->
+  
   <div class="modal" id="orderModal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -244,7 +244,7 @@
   </div>
 
   <script>
-    /* صور الكيك */
+    
     const cakes = {
       1: [
         "https://cdn.pixabay.com/photo/2017/01/16/19/40/cake-1981968_960_720.jpg",
@@ -271,7 +271,7 @@
       document.getElementById("cakeImage").src = images[randomIndex];
     }
 
-    /* ايموجي الخلفية */
+    
     const emojiContainer = document.getElementById("emojiContainer");
     const emojis = ["🍩","🍪","🍒","🧁","🍫","🍦","🥤","🍭","🍰","🍹"];
     for (let i = 0; i < 15; i++) {
@@ -284,7 +284,7 @@
       emojiContainer.appendChild(e);
     }
 
-    /* فتح وغلق المودال */
+   
     function openModal() {
       document.getElementById("orderModal").style.display = "block";
     }
@@ -300,6 +300,7 @@
   </script>
 </body>
 </html>
+
 
 
 
