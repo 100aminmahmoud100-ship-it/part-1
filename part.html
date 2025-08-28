@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cake Gallery & Order</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      text-align: center;
+      padding: 30px;
+      overflow: hidden;
+      position: relative; 
+    }
+
+    .btn {
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      padding: 14px 30px;
+      border-radius: 30px;
+      display: inline-block;
+      margin: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      transition: 0.3s;
+      box-shadow: 0px 6px 14px rgba(0,0,0,0.3);
+      cursor: pointer;
+      position: relative; 
+      z-index: 2;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #24c6dc, #514a9d);
+      transform: scale(1.15) rotate(-2deg);
+    }
+
+    img {
+      width: 320px;
+      border-radius: 25px;
+      margin-top: 25px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.4);
+      transition: 0.4s;
+      background: #fff;
+      padding: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    img:hover {
+      transform: scale(1.1) rotate(2deg);
+    }
+
+    h1 {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* خلفية ايموجي */
+    .emoji-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0; 
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 35px;
+      animation: float 3s ease-in-out infinite;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+
+    /* زرار فتح الفورم */
+    .open-btn {
+      margin-top: 30px;
+      padding: 15px 35px;
+      font-size: 20px;
+      background: #ff5e9c;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 2;
+      position: relative;
+    }
+    .open-btn:hover {
+      background: #ff2f7c;
+    }
+
+    /* نافذة منبثقة */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 15px;
+      width: 450px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff5e9c;
+    }
+
+    .order-form input, .order-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+    .order-form input:focus, .order-form textarea:focus {
+      border-color: #ff5e9c;
+      box-shadow: 0 0 6px #ffc6dc;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
+    .option {
+      flex: 1;
+      text-align: center;
+      margin: 0 5px;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .option:hover {
+      border-color: #ff5e9c;
+      background: #fff0f7;
+    }
+    .option input { display: none; }
+    .option label { cursor: pointer; display: block; font-size: 16px; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #ff5e9c;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .submit-btn:hover {
+      background: #ff2f7c;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="emoji-container" id="emojiContainer"></div>
+
+  <h1>🎂 Welcome to Cake Gallery 🎂</h1>
+  
+  <!-- أزرار الكيك -->
+  <button class="btn" onclick="showCake(1)">🍰 كيكة 1</button>
+  <button class="btn" onclick="showCake(2)">🍰 كيكة 2</button>
+  <button class="btn" onclick="showCake(3)">🍰 كيكة 3</button>
+  <button class="btn" onclick="showCake(4)">🍰 كيكة 4</button>
+  
+  <br><br>
+  
+  <!-- صورة الكيك -->
+  <img id="cakeImage" src="https://cdn.pixabay.com/photo/2016/11/18/15/01/cake-1835443_1280.jpg" alt="كيكة لذيذة">
+
+  <!-- زرار فتح الفورم -->
+  <br>
+  <button class="open-btn" onclick="openModal()">📦 اطلب الآن</button>
+
+  <!-- المودال -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <form class="order-form">
+        <h2>🛒 Order Now</h2>
+
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="Phone" required>
+        <textarea placeholder="Address" rows="3"></textarea>
+
+        <div class="options">
+          <div class="option">
+            <input type="radio" id="cookies" name="item" value="Cookies">
+            <label for="cookies">🍪 Cookies</label>
+          </div>
+          <div class="option">
+            <input type="radio" id="cakes" name="item" value="Cakes">
+            <label for="cakes">🍰 Cakes</label>
+          </div>
+          <div class="option">
+            <input type="radio" id="drinks" name="item" value="Drinks">
+            <label for="drinks">🥤 Drinks</label>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Order 🚀</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    /* صور الكيك */
+    const cakes = {
+      1: [
+        "https://cdn.pixabay.com/photo/2017/01/16/19/40/cake-1981968_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2020/01/09/20/52/cake-4751710_1280.jpg",
+        "https://cdn.pixabay.com/photo/2017/03/23/12/41/cake-2168375_1280.jpg"
+      ],
+      2: [
+        "https://cdn.pixabay.com/photo/2017/08/06/23/30/cake-2593142_1280.jpg",
+        "https://cdn.pixabay.com/photo/2017/04/04/17/56/cake-2201783_1280.jpg"
+      ],
+      3: [
+        "https://cdn.pixabay.com/photo/2016/03/05/19/02/cake-1238486_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/07/27/13/41/cake-1543113_1280.jpg"
+      ],
+      4: [
+        "https://cdn.pixabay.com/photo/2016/04/24/15/41/cake-1356593_1280.jpg",
+        "https://cdn.pixabay.com/photo/2017/01/11/11/34/cake-1971553_1280.jpg"
+      ]
+    };
+
+    function showCake(buttonId) {
+      const images = cakes[buttonId];
+      const randomIndex = Math.floor(Math.random() * images.length);
+      document.getElementById("cakeImage").src = images[randomIndex];
+    }
+
+    /* ايموجي الخلفية */
+    const emojiContainer = document.getElementById("emojiContainer");
+    const emojis = ["🍩","🍪","🍒","🧁","🍫","🍦","🥤","🍭","🍰","🍹"];
+    for (let i = 0; i < 15; i++) {
+      let e = document.createElement("div");
+      e.classList.add("emoji");
+      e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      e.style.top = Math.random() * 90 + "vh";
+      e.style.left = Math.random() * 90 + "vw";
+      e.style.animationDuration = (2 + Math.random() * 3) + "s";
+      emojiContainer.appendChild(e);
+    }
+
+    /* فتح وغلق المودال */
+    function openModal() {
+      document.getElementById("orderModal").style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("orderModal").style.display = "none";
+    }
+    window.onclick = function(event) {
+      let modal = document.getElementById("orderModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
